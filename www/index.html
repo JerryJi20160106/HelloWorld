@@ -31,16 +31,41 @@
     </head>
     <body>
         <div class="app">
-            <h1>Super PhoneGap</h1>
+            <h1>Hello</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event received">Device is Ready<br/>
+					<input type="button" name="barcodeaction" value="Start Scanning" onclick="scanbarcode();">
+				</p>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="barcodescanner.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
+        </script>
+		<script type="text/javascript">
+            function scanbarcode(){    
+				alert("start scanning");
+				
+				var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+
+				scanner.scan( function (result) { 
+					alert("We got a barcode\n" + 
+					"Result: " + result.text + "\n" + 
+					"Format: " + result.format + "\n" + 
+					"Cancelled: " + result.cancelled);  
+					/*
+					if (args.format == "QR_CODE") {
+						window.plugins.childBrowser.showWebPage(args.text, { showLocationBar: false });
+					}
+					*/
+
+				}, function (error) { 
+					alert(error);
+				} );
+			}
         </script>
     </body>
 </html>
